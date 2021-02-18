@@ -23,7 +23,7 @@ namespace InsuranceBadgeRepo
             List<string> currentDoors = badge.ListOfDoors;
             int doorCount = currentDoors.Count;
             currentDoors.Add(newDoor);
-            bool addedDoor = currentDoors.Count > doorCount;
+            bool addedDoor = doorCount < currentDoors.Count;
             return addedDoor;
         }
         public List<Badge> GetBadges()
@@ -45,16 +45,42 @@ namespace InsuranceBadgeRepo
             }
             return null;
         }
+        //changes
+        public List<string> GetDoorsByBadgeID(string badgeID)
+        {
+            Badge badge = GetBadgeByBadgeID(badgeID);
+            List<string> currentDoors = badge.ListOfDoors;
+            return currentDoors;
+        }
         public List<string> GetClearanceForBadge(string badgeID)
         {
             Badge badge = GetBadgeByBadgeID(badgeID);
             List<string> currentDoors = badge.ListOfDoors;
             return currentDoors;
         }
-        public Badge RemoveDoorsFromBadge(string badgeID, string door)
+        public bool RemoveDoorsFromBadge(string badgeID, string door)
         {
-            List<string> currentDoors = GetClearanceForBadge(badgeID);
-
+            Badge currentBadge = GetBadgeByBadgeID(badgeID);
+            List<string> currentDoors = currentBadge.ListOfDoors;
+            bool doorsDeleted = currentDoors.Remove(door);
+            return doorsDeleted;
+        }
+        public bool RemoveAllDoorsFromBadge(string badgeID)
+        {
+            Badge badge = GetBadgeByBadgeID(badgeID);
+            List<string> doorsToRemove = badge.ListOfDoors;
+            int doorCount = doorsToRemove.Count;
+            doorsToRemove.RemoveRange(0, doorCount);
+            bool doorsRemoved = doorsToRemove.Count == 0;
+            return doorsRemoved;
+        }
+        public bool DeleteABadge(string badgeID)
+        {
+            Badge badge = GetBadgeByBadgeID(badgeID);
+            int startingCount = _listOfBadges.Count;
+            _listOfBadges.Remove(badge);
+            bool wasDeleted = startingCount > _listOfBadges.Count;
+            return wasDeleted;
         }
     }
 }
