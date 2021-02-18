@@ -113,6 +113,7 @@ namespace KomodoMenuApp
         }
         private void GetAllMealsByMealNumber()
         {
+            Console.WriteLine("Please enter the meal number you would like to see:");
             int mealNumber = Convert.ToInt32(Console.ReadLine());
 
             MenuItems meal = _menuRepo.GetMenuItemsByNumber(mealNumber);
@@ -1336,7 +1337,8 @@ namespace KomodoMenuApp
                 $"Meal Description: {menuItems.MealName}\n" +
                 $"Meal Entree: {menuItems.Main.Name}\n" +
                 $"Meal Side: {menuItems.Sides.Name}\n" +
-                $"Meal Dessert: {menuItems.Desserts.Name}\n\n\n");
+                $"Meal Dessert: {menuItems.Desserts.Name}\n" +
+                $"Meal Price: {menuItems.MealPrice(menuItems.Main, menuItems.Sides, menuItems.Desserts)}\n\n\n");
         }
         private void SeedMenu()
         {
