@@ -14,13 +14,6 @@ namespace KomodoMenuRepo
         private readonly List<Drink> _drinks = new List<Drink>();
         private readonly List<MenuItems> _menu = new List<MenuItems>();
 
-        public int Count
-        {
-            get
-            {
-                return _menu.Count;
-            }
-        }
         public bool AddEntreesToDirectory(Entree entrees)
         {
             int initialCount = _entrees.Count;
@@ -84,9 +77,6 @@ namespace KomodoMenuRepo
                 {
                     return entree;
                 }
-                Console.WriteLine("Please enter a valid entree");
-                GetEntrees();
-                Console.ReadKey();
             }
             return null;
         }
@@ -98,9 +88,6 @@ namespace KomodoMenuRepo
                 {
                     return side;
                 }
-                Console.WriteLine("Please enter a valid side");
-                GetSides();
-                Console.ReadKey();
             }
             return null;
         }
@@ -112,9 +99,6 @@ namespace KomodoMenuRepo
                 {
                     return dessert;
                 }
-                Console.WriteLine("Please enter a valid dessert");
-                GetDesserts();
-                Console.ReadKey();
             }
             return null;
         }
@@ -126,9 +110,6 @@ namespace KomodoMenuRepo
                 {
                     return drink;
                 }
-                Console.WriteLine("Please enter a valid drink");
-                GetDrinks();
-                Console.ReadKey();
             }
             return null;
         }
@@ -136,13 +117,10 @@ namespace KomodoMenuRepo
         {
             foreach (MenuItems items in _menu)
             {
-                if (mealNum == Convert.ToInt32(Console.ReadLine()))
+                if (mealNum == items.MealNum)
                 {
                     return items;
                 }
-                Console.WriteLine("Please enter a valid Menu Item Number");
-                GetMenuItems();
-                Console.ReadKey();
             }
             return null;
         }
@@ -194,7 +172,7 @@ namespace KomodoMenuRepo
                 oldContent.DessertBase = newContent.DessertBase;
                 oldContent.Topping = newContent.Topping;
                 oldContent.Topping2 = newContent.Topping2;
-         
+
                 return true;
             }
             return false;

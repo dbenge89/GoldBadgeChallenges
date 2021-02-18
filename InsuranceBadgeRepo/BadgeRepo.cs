@@ -9,15 +9,8 @@ namespace InsuranceBadgeRepo
     public class BadgeRepo
     {
         private readonly List<Badge> _listOfBadges = new List<Badge>();
-        private readonly List<Door> _listOfDoors = new List<Door>();
+        private readonly List<string> _listOfDoors = new List<string>();
 
-        public int Count
-        {
-            get
-            {
-                return _listOfBadges.Count;
-            }
-        }
         public bool AddBadgeToBadgeList(Badge badge)
         {
             int startingCount = _listOfBadges.Count;
@@ -25,11 +18,19 @@ namespace InsuranceBadgeRepo
             bool wasAdded = _listOfBadges.Count > startingCount;
             return wasAdded;
         }
+        public bool AddDoorsToBadge(Badge badge, string newDoor)
+        {
+            List<string> currentDoors = badge.ListOfDoors;
+            int doorCount = currentDoors.Count;
+            currentDoors.Add(newDoor);
+            bool addedDoor = currentDoors.Count > doorCount;
+            return addedDoor;
+        }
         public List<Badge> GetBadges()
         {
             return _listOfBadges;
         }
-        public List<Door> GetDoors()
+        public List<string> GetDoors()
         {
             return _listOfDoors;
         }
@@ -42,10 +43,18 @@ namespace InsuranceBadgeRepo
                     return badge;
                 }
             }
-            Console.WriteLine("No badge with that ID number exists");
-            Console.ReadKey();
             return null;
         }
+        public List<string> GetClearanceForBadge(string badgeID)
+        {
+            Badge badge = GetBadgeByBadgeID(badgeID);
+            List<string> currentDoors = badge.ListOfDoors;
+            return currentDoors;
+        }
+        public Badge RemoveDoorsFromBadge(string badgeID, string door)
+        {
+            List<string> currentDoors = GetClearanceForBadge(badgeID);
 
+        }
     }
 }
